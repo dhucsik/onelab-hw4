@@ -2,7 +2,6 @@ package postgre
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 	"time"
 
@@ -39,12 +38,19 @@ func (r *TransactionRepository) Create(ctx context.Context, transaction *models.
 	return strconv.FormatUint(uint64(model.ID), 10), result.Error
 }
 
-func (r *TransactionRepository) Update(ctx context.Context, transaction *models.Transaction) error {
+func (r *TransactionRepository) Update(ctx context.Context, ID string, transaction *models.Transaction) error {
+	id, err := strconv.ParseUint(ID, 10, 32)
+	if err != nil {
+		return err
+	}
+
 	model, err := toPostgreTransaction(transaction)
 	if err != nil {
 		return err
 	}
-	return r.db.Updates(&model).Error
+
+	model.ID = uint(id)
+	return r.db.Save(&model).Error
 }
 
 func (r *TransactionRepository) Get(ctx context.Context, ID string) (models.Transaction, error) {
@@ -68,12 +74,6 @@ func (r *TransactionRepository) List(ctx context.Context) ([]models.Transaction,
 }
 
 func toPostgreTransaction(t *models.Transaction) (Transaction, error) {
-	fmt.Println(t)
-	id, err := strconv.ParseUint(t.ID, 10, 32)
-	if err != nil {
-		return Transaction{}, err
-	}
-
 	senderID, err := strconv.ParseUint(t.SenderID, 10, 32)
 	if err != nil {
 		return Transaction{}, err
@@ -85,7 +85,6 @@ func toPostgreTransaction(t *models.Transaction) (Transaction, error) {
 	}
 
 	return Transaction{
-		ID:            uint(id),
 		SenderID:      uint(senderID),
 		PaymentTime:   t.PaymentTime,
 		ItemID:        uint(itemID),

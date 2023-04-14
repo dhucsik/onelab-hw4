@@ -11,7 +11,7 @@ import (
 type ITransactionRepository interface {
 	Create(ctx context.Context, transaction *models.Transaction) (string, error)
 	Get(ctx context.Context, ID string) (models.Transaction, error)
-	Update(ctx context.Context, transaction *models.Transaction) error
+	Update(ctx context.Context, ID string, transaction *models.Transaction) error
 	List(ctx context.Context) ([]models.Transaction, error)
 	Delete(ctx context.Context, ID string) error
 }

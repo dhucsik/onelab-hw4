@@ -24,8 +24,8 @@ func (s *TransactionService) Create(ctx context.Context, transaction *models.Tra
 	return s.repo.Transaction.Create(ctx, transaction)
 }
 
-func (s *TransactionService) Update(ctx context.Context, transaction *models.Transaction) error {
-	return s.repo.Transaction.Update(ctx, transaction)
+func (s *TransactionService) Update(ctx context.Context, ID string, transaction *models.Transaction) error {
+	return s.repo.Transaction.Update(ctx, ID, transaction)
 }
 
 func (s *TransactionService) Delete(ctx context.Context, ID string) error {

@@ -28,9 +28,7 @@ func (h Manager) UpdateTransaction(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	req.ID = id
-
-	err := h.srv.Transaction.Update(c.Request().Context(), &req)
+	err := h.srv.Transaction.Update(c.Request().Context(), id, &req)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
