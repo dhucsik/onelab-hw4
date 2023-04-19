@@ -10,8 +10,8 @@ import (
 	"github.com/dhucsik/onelab-hw4/config"
 	"github.com/dhucsik/onelab-hw4/transport/http/handler"
 
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 type Server struct {

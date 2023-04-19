@@ -1,0 +1,211 @@
+basePath: /api/v1
+definitions:
+  models.Transaction:
+    properties:
+      book_id:
+        type: string
+      id:
+        type: string
+      payment_amount:
+        type: number
+      payment_time:
+        type: string
+      sender_id:
+        type: string
+    type: object
+host: localhost:8587
+info:
+  contact:
+    email: diasgalikhanov@gmail.com
+    name: Dias Galikhanov
+  description: Microservice for storing and managing transactions
+  title: Transactions microservice
+  version: "1.0"
+paths:
+  /transaction:
+    get:
+      consumes:
+      - application/json
+      description: list transactions
+      operationId: list-transactions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Transaction'
+            type: array
+        "400":
+          description: message
+          schema:
+            type: string
+        "404":
+          description: message
+          schema:
+            type: string
+        "500":
+          description: message
+          schema:
+            type: string
+        default:
+          description: message
+          schema:
+            type: string
+      summary: List Transactions
+      tags:
+      - transaction
+    post:
+      consumes:
+      - application/json
+      description: create transaction
+      operationId: create-transaction
+      parameters:
+      - description: transaction info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Transaction'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: id
+          schema:
+            type: string
+        "400":
+          description: message
+          schema:
+            type: string
+        "404":
+          description: message
+          schema:
+            type: string
+        "500":
+          description: message
+          schema:
+            type: string
+        default:
+          description: message
+          schema:
+            type: string
+      summary: Create Transaction
+      tags:
+      - transaction
+  /transaction/{transaction_id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete transcation by ID
+      operationId: delete-transaction
+      parameters:
+      - description: transaction id
+        in: path
+        name: transaction_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: message
+          schema:
+            type: string
+        "404":
+          description: message
+          schema:
+            type: string
+        "500":
+          description: message
+          schema:
+            type: string
+        default:
+          description: message
+          schema:
+            type: string
+      summary: Delete Transaction
+      tags:
+      - transaction
+    get:
+      consumes:
+      - application/json
+      description: get transaction by ID
+      operationId: get-transaction
+      parameters:
+      - description: transaction id
+        in: path
+        name: transaction_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Transaction'
+        "400":
+          description: message
+          schema:
+            type: string
+        "404":
+          description: message
+          schema:
+            type: string
+        "500":
+          description: message
+          schema:
+            type: string
+        default:
+          description: message
+          schema:
+            type: string
+      summary: Get Transaction
+      tags:
+      - transaction
+    put:
+      consumes:
+      - application/json
+      description: update transaction
+      operationId: update-transaction
+      parameters:
+      - description: transaction id
+        in: path
+        name: transaction_id
+        required: true
+        type: string
+      - description: transaction info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Transaction'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: message
+          schema:
+            type: string
+        "404":
+          description: message
+          schema:
+            type: string
+        "500":
+          description: message
+          schema:
+            type: string
+        default:
+          description: message
+          schema:
+            type: string
+      summary: Update Transaction
+      tags:
+      - transaction
+swagger: "2.0"

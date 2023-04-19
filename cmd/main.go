@@ -7,11 +7,25 @@ import (
 	"os/signal"
 
 	"github.com/dhucsik/onelab-hw4/config"
+	_ "github.com/dhucsik/onelab-hw4/docs"
 	"github.com/dhucsik/onelab-hw4/service"
 	"github.com/dhucsik/onelab-hw4/storage"
 	"github.com/dhucsik/onelab-hw4/transport/http"
 	"github.com/dhucsik/onelab-hw4/transport/http/handler"
 )
+
+// @title Transactions microservice
+// @version 1.0
+// @description Microservice for storing and managing transactions
+// @termOfService http://swagger.io/terms/
+
+// @contact.name Dias Galikhanov
+// @contact.email diasgalikhanov@gmail.com
+
+// @host localhost:8587
+// @BasePath /api/v1
+
+// Transaction CRUD + Swagger
 
 func main() {
 	log.Fatalln(run())

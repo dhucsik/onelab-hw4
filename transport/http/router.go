@@ -1,7 +1,11 @@
 package http
 
+import echoSwagger "github.com/swaggo/echo-swagger"
+
 func (s *Server) SetupRoutes() {
 	v1 := s.App.Group("/api/v1")
+
+	s.App.GET("/swagger/*", echoSwagger.EchoWrapHandler())
 
 	v1.POST("/transaction", s.handler.CreateTransaction)
 	v1.PUT("/transaction/:id", s.handler.UpdateTransaction)

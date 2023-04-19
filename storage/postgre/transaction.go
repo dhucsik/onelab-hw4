@@ -16,7 +16,7 @@ type Transaction struct {
 	DeletedAt     gorm.DeletedAt `gorm:"index"`
 	SenderID      uint
 	PaymentTime   time.Time
-	ItemID        uint
+	BookID        uint
 	PaymentAmount float64
 }
 
@@ -79,7 +79,7 @@ func toPostgreTransaction(t *models.Transaction) (Transaction, error) {
 		return Transaction{}, err
 	}
 
-	itemID, err := strconv.ParseUint(t.ItemID, 10, 32)
+	bookID, err := strconv.ParseUint(t.BookID, 10, 32)
 	if err != nil {
 		return Transaction{}, err
 	}
@@ -87,7 +87,7 @@ func toPostgreTransaction(t *models.Transaction) (Transaction, error) {
 	return Transaction{
 		SenderID:      uint(senderID),
 		PaymentTime:   t.PaymentTime,
-		ItemID:        uint(itemID),
+		BookID:        uint(bookID),
 		PaymentAmount: t.PaymentAmount,
 	}, nil
 }
@@ -97,7 +97,7 @@ func toTransactionModel(t *Transaction) models.Transaction {
 		ID:            strconv.FormatUint(uint64(t.ID), 10),
 		SenderID:      strconv.FormatUint(uint64(t.SenderID), 10),
 		PaymentTime:   t.PaymentTime,
-		ItemID:        strconv.FormatUint(uint64(t.ItemID), 10),
+		BookID:        strconv.FormatUint(uint64(t.BookID), 10),
 		PaymentAmount: t.PaymentAmount,
 	}
 }
